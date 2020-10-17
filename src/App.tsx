@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { createGlobalStyle } from "styled-components";
+import { Form, Input } from './Input';
+import Number from './Number';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+interface IState {
+  counter : number;
+  name: string;
+}
+
+class App extends Component<{}, IState> {
+  state = {
+    counter : 0,
+    name: ""
+  };
+  render() {
+    const { counter, name } = this.state;
+    return (
+    <div>
+      <Form onFormSubmit={this.onFormSubmit}>
+        <Input value={name} onChange={this.onChange} />
+      </Form>
+      <Number count={counter} /> <button onClick={this.add}>Add</button>
     </div>
-  );
+    );
+  }
+
+  onChange = (event:React.SyntheticEvent<HTMLInputElement>) => {
+    console.log(event)
+  }
+
+
+  onFormSubmit = (event:React.FormEvent) => {
+    event.preventDefault();
+  }
+
+
+  add = ():void => {
+    this.setState(prev => {
+      return {
+        counter : prev.counter + 1,
+      }
+    })
+  }
 }
 
 export default App;
