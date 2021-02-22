@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { createGlobalStyle } from "styled-components";
+import React, { useState } from 'react';
 import { Form, Input } from './Input';
 import Number from './Number';
 
@@ -8,40 +7,35 @@ interface IState {
   name: string;
 }
 
-class App extends Component<{}, IState> {
-  state = {
-    counter : 0,
-    name: ""
-  };
-  render() {
-    const { counter, name } = this.state;
-    return (
-    <div>
-      <Form onFormSubmit={this.onFormSubmit}>
-        <Input value={name} onChange={this.onChange} />
-      </Form>
-      <Number count={counter} /> <button onClick={this.add}>Add</button>
-    </div>
-    );
+const App = () => {
+
+  const [counter, setCounter] = useState<number>(0);
+  const [name, setName] = useState<string>("");
+
+  const onChange = (event:React.ChangeEvent<HTMLInputElement>): void => {
+    console.log(event.target.value);
+    setName(event.target.value);
   }
 
-  onChange = (event:React.SyntheticEvent<HTMLInputElement>) => {
-    console.log(event)
-  }
-
-
-  onFormSubmit = (event:React.FormEvent) => {
+  const onFormSubmit = (event:React.FormEvent): void => {
     event.preventDefault();
   }
 
 
-  add = ():void => {
-    this.setState(prev => {
-      return {
-        counter : prev.counter + 1,
-      }
-    })
+  const add = ():void => {
+    setCounter(prev => prev + 1);
   }
+
+    return (
+    <div>
+      <Form onFormSubmit={onFormSubmit}>
+        <Input value={name} onChange={onChange} />
+      </Form>
+      <Number count={counter} /> <button onClick={add}>Add</button>
+      <div><small>If count is bigger than 10, text color will be red</small></div>
+    </div>
+    );
+
 }
 
 export default App;

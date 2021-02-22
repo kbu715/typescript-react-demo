@@ -1,11 +1,10 @@
 import React from 'react'
-import styled from 'styled-components'
 
 
 
 interface IInputProps {
     value: string;
-    onChange: (event:React.SyntheticEvent<HTMLInputElement>) => void;
+    onChange: (event:React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Input : React.FunctionComponent<IInputProps> = ({value, onChange}) => (

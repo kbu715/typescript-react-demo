@@ -1,3 +1,4 @@
 export default {
-    redColor: "red"
+    redColor: "red",
+    blueColor: "blue"
   };
